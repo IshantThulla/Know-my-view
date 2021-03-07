@@ -15,8 +15,8 @@
               <a class="mr-2" href="{% url 'user_posts' post.author.username %}"> Post by  - {{ post.author }}</a>
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
-            <h2><a class="article-title" href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
+            <h4><a class="article-title" href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h4>
+            
           </div>
           <p>Views: {% get_hit_count for post %}</p>
         </article>
