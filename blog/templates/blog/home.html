@@ -16,7 +16,7 @@
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
             <h4><a class="article-title" href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h4>
-            
+            <p class="article-content">{{ object.content }}</p>
           </div>
           <p>Views: {% get_hit_count for post %}</p>
         </article>
