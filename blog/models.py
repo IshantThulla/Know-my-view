@@ -9,21 +9,22 @@ from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 import datetime
 
-
 class Post(models.Model):
-	title = models.CharField(max_length=100)
-	content = models.TextField()
-	date_posted = models.DateTimeField(default=timezone.now)
-	author = models.ForeignKey(User, on_delete=models.CASCADE)
-	views = models.IntegerField(default=5)
-	hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
-     related_query_name='hit_count_generic_relation')
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    views = models.IntegerField(default=5)
+    hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
 
-	def __str__(self):
-		return self.title
+    # Explicitly specify the primary key field type
+    id = models.BigAutoField(primary_key=True)
 
-	def get_absolute_url(self):
-		return reverse('post_detail' , kwargs={'pk': self.pk,})
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'pk': self.pk})
 
 class Comment(models.Model):
     post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='comments')
@@ -32,6 +33,9 @@ class Comment(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
     comment_datetime = now = datetime.datetime.now()
+
+    # Explicitly specify the primary key field type
+    id = models.BigAutoField(primary_key=True)
 
     def approve(self):
         self.approved_comment = True
